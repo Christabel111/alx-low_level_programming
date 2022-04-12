@@ -1,31 +1,39 @@
 #include <stdio.h>
-#include <stdlib.h>
-#define n 4000000
 
 /**
- * main - print fibonacci numbers
+ * main - print first 98 fibonacci numbers
  * Return: Always 0.
  */
 
 int main(void)
 {
-	unsigned long num_1, num_2, num_3;
-	unsigned long result;
+	unsigned long int a = 1, b = 2, c, k, p, l, o, m, u, d, i;
 
-	result = 0;
-	num_1 = 1;
-	num_2 = 2;
-
-	while (num_1 <= n)
+	c = a + b;
+	printf("%lu, %lu, ", a, b);
+	d = 3;
+	while (d < 89)
 	{
-		if (num_1 % 2 == 0)
-		{
-			result += num_1;
-		}
-		num_3 = num_2;
-		num_2 = num_1 + num_2;
-		num_1 = num_3;
+		printf("%lu, ", c);
+		a = b;
+		b = c;
+		c = a + b;
+		d++;
 	}
-	printf("%lu\n", result);
+	l = b / 1000000000;
+	o = b % 1000000000;
+	m = c / 1000000000;
+	u = c % 1000000000;
+	for (i = 89; i < 98; i++)
+	{
+		printf("%lu%lu, ", m, u);
+		k = l;
+		p = o;
+		l = m;
+		o = u;
+		m = k + l + ((p + o) / 1000000000);
+		u = (p + o) % 1000000000;
+	}
+	printf("%lu%lu\n", m, u);
 	return (0);
 }
