@@ -1,74 +1,70 @@
 #include "main.h"
-#include <stdio.h>
 
 /**
- * wildcmp - check the code for Holberton School students.
- * @s1: string
- * @s2: string
- * Return: Always 0.
+ * test - tests if wildcard is a proper match
+ * @s5: string to compare
+ * @s6: wildcard match to compare
+ * @t5: first spot that was checked
+ * @t6: first spot in wildcard comparison
+ *
+ * Return: spot that matches or NULL
+ */
+
+char *test(char *s5, char *s6, char *t5, char *t6)
+{
+	if (*s6 == '*' || (*s5 == '\0' && *s6 == '\0'))
+		return (t5);
+	else if (*s5 != *s6)
+		return (wildcard(s5, t6));
+	else
+		return (test(s5 + 1, s6 + 1, t5, t6));
+}
+
+/**
+ * wildcard - checks for the wildcards
+ * @s3: string to compare to
+ * @s4: string to check
+ *
+ * Return: pointer to spot in s3 that matches s4
+ */
+
+char *wildcard(char *s3, char *s4)
+{
+	if (*s3 != *s4)
+	{
+		if (*s3 == '\0')
+			return (0);
+		return (wildcard(s3 + 1, s4));
+	}
+	return (test(s3 + 1, s4 + 1, s3, s4));
+}
+
+/**
+ * wildcmp - compares two strings
+ * @s1: first string
+ * @s2: second string, may contain wildcard *
+ *
+ * Return: 1 if match, 0 if not
  */
 
 int wildcmp(char *s1, char *s2)
 {
-	return (checker(s1, s2, 0, 0, -1));
-}
+	char *p;
 
-/**
- * checkLast - check last char of s2 when s1 ends
- * @s: string
- * @i: int
- * Return: 0 or 1
- */
-
-int checkLast(char *s, int i)
-{
-	if (s[i] == '*')
-		return (checkLast(s, i + 1));
-	else if (s[i] == '\0')
+	if (*s2 == '*' && *(s2 + 1) == '\0')
 		return (1);
-
-	return (0);
-}
-
-/**
- * checker - helper
- *
- * @s1: string
- * @s2: string
- * @a: int
- * @b: int
- * @wildUsed: int
- * Return: Always 0.
- */
-
-int checker(char *s1, char *s2, int a, int b, int wildUsed)
-{
-	if (s1[a] != '\0')
+	else if (*s2 == '*' && *(s2 + 1) == '*')
+		return (wildcmp(s1, s2 + 1));
+	else if (*s2 == '*')
 	{
-		if (s2[b] == '\0')
+		p = wildcard(s1, s2 + 1);
+		if (p == 0)
 			return (0);
-		else if (s2[b] == '*')
-		{
-			if (s2[b + 1] == '*')
-				return (checker(s1, s2, a, b + 1, b));
-			else if (s2[b + 1] == s1[a])
-				return (checker(s1, s2, a, b + 1, b));
-			else if (s1[a + 1] != s2[b + 1])
-				return (checker(s1, s2, a + 1, b, b));
-			else if (s1[a + 1] == s2[b + 1])
-				return (checker(s1, s2, a + 1, b + 1, b));
-		}
-		else if ((s1[a] == s2[b]) || (s2[b] == '*' && s2[b + 1] == s1[a + 1]))
-			return (checker(s1, s2, a + 1, b + 1, wildUsed));
-
-		if (wildUsed == -1)
-			return (0);
-
-		return (checker(s1, s2, a, wildUsed, wildUsed));
-
-
+		return (wildcmp(p + 1, s2 + 2));
 	}
-	if (s2[b] != '\0')
-		return (checkLast(s2, b));
-	return (1);
+	else if (*s1 != *s2)
+		return (0);
+	if (*s1 == '\0' && *s2 == '\0')
+		return (1);
+	return (wildcmp(s1 + 1, s2 + 1));
 }
