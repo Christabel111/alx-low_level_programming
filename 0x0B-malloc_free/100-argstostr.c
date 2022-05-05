@@ -25,7 +25,7 @@ int _strlen(char *s)
  */
 
 char *argstostr(int ac, char **av)
-{	
+{
 	char *str;
 	int arg, byte, index, size = ac;
 
@@ -55,4 +55,3 @@ char *argstostr(int ac, char **av)
 
 	return (str);
 }
-	
