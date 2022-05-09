@@ -47,11 +47,11 @@ int main(void)
 
 	p = _realloc(p, sizeof(char) * 10, sizeof(char) * 98);
 	i = 0;
-	 while (i < 98)
-	 {
+	while (i < 98)
+	{
 		p[i++] = 98;
-	 }
-	 simple_print_buffer(p, 98);
-	 free(p);
-	 return (0);
+	}
+	simple_print_buffer(p, 98);
+	free(p);
+	return (0);
 }
