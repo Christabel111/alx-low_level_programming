@@ -15,4 +15,4 @@ int main(void)
 		printf("Big Endian\n");
 	}
 	return (0);
-}i
+}
