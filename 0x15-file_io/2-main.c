@@ -5,6 +5,9 @@
 /**
  * main - check the code
  *
+ * @ac: parameter
+ * @av: parameter
+ *
  * Return: Always 0.
  */
 int main(int ac, char **av)
